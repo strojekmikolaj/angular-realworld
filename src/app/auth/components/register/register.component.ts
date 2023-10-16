@@ -50,7 +50,6 @@ export class RegisterComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    console.log(this.form.getRawValue())
     const request: RegisterRequest = {
       user: this.form.getRawValue(),
     }

@@ -1,0 +1,33 @@
+import {createFeature, createReducer, on} from '@ngrx/store'
+import {FeedStateInterface} from '../types/feed-state.interface'
+import {feedActions} from './actions'
+import {routerNavigationAction} from '@ngrx/router-store'
+
+const initialState: FeedStateInterface = {
+  isLoading: false,
+  error: null,
+  data: null,
+}
+
+const feedFeature = createFeature({
+  name: 'feed',
+  reducer: createReducer(
+    initialState,
+    on(feedActions.getFeed, (state) => ({...state, isLoading: true})),
+    on(feedActions.getFeedSuccess, (state, actions) => ({
+      ...state,
+      isLoading: false,
+      data: actions.feed,
+    })),
+    on(feedActions.getFeedFailure, (state) => ({...state, isLoading: false})),
+    on(routerNavigationAction, () => initialState)
+  ),
+})
+
+export const {
+  name: feedFeatureKey,
+  reducer: feedReducer,
+  selectIsLoading,
+  selectError,
+  selectData: selectFeedData,
+} = feedFeature

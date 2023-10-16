@@ -7,9 +7,19 @@ import {authFeatureKey, authReducer} from './auth/store/reducers'
 import {provideStoreDevtools} from '@ngrx/store-devtools'
 import {provideHttpClient, withInterceptors} from '@angular/common/http'
 import * as authEffects from './auth/store/effects'
+import * as feedEffects from './shared/components/feed/store/effect'
+import * as popularTagsEffect from './shared/components/popular-tags/store/effect'
 import {provideEffects} from '@ngrx/effects'
 import {provideRouterStore, routerReducer} from '@ngrx/router-store'
 import {authInterceptor} from './shared/services/auth-interceptor'
+import {
+  feedFeatureKey,
+  feedReducer,
+} from './shared/components/feed/store/reducers'
+import {
+  tagsFeatureKey,
+  tagsReducer,
+} from './shared/components/popular-tags/store/reducers'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,8 +35,10 @@ export const appConfig: ApplicationConfig = {
       traceLimit: 75,
     }),
     provideState(authFeatureKey, authReducer),
+    provideState(feedFeatureKey, feedReducer),
+    provideState(tagsFeatureKey, tagsReducer),
     provideHttpClient(withInterceptors([authInterceptor])),
-    provideEffects(authEffects),
+    provideEffects(authEffects, feedEffects, popularTagsEffect),
     provideRouterStore(),
   ],
 }
