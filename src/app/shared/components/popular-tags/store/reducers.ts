@@ -1,8 +1,7 @@
-import { createFeature, createReducer, on } from '@ngrx/store'
+import {createFeature, createReducer, on} from '@ngrx/store'
 
-import { routerNavigationAction } from '@ngrx/router-store'
-import { TagsStateInterface } from '../types/tags-state.interface'
-import { tagsActions } from './actions'
+import {TagsStateInterface} from '../types/tags-state.interface'
+import {tagsActions} from './actions'
 
 const initialState: TagsStateInterface = {
   isLoading: false,
@@ -20,8 +19,7 @@ const tagsFeature = createFeature({
       isLoading: false,
       data: actions.tags,
     })),
-    on(tagsActions.getTagsFailure, (state) => ({...state, isLoading: false})),
-    on(routerNavigationAction, () => initialState)
+    on(tagsActions.getTagsFailure, (state) => ({...state, isLoading: false}))
   ),
 })
 

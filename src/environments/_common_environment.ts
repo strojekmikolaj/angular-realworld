@@ -1,3 +1,7 @@
+import {ApiParams} from './const/api-params.const'
+
+const {SLUG} = ApiParams
+
 export const environment = {
   limit: 20,
 }
@@ -10,10 +14,23 @@ export const _commonEnvironment = {
   },
   apiFeed: {
     API_HOST_URL: 'https://api.realworld.io/api',
-    ARTICLES: '/articles',
+    ARTICLES: 'articles',
+    FEED: 'articles/feed',
   },
   apiTags: {
     API_HOST_URL: 'https://api.realworld.io/api',
-    TAGS: '/tags',
+    TAGS: 'tags',
+  },
+  apiArticle: {
+    API_HOST_URL: 'https://api.realworld.io/api',
+    ARTICLES: 'articles',
+  },
+  apiFavorites: {
+    API_HOST_URL: 'https://api.realworld.io/api',
+    FAVORITES: `articles/${SLUG}/favorite`,
+  },
+  apiUserProfile: {
+    API_HOST_URL: 'https://api.realworld.io/api',
+    USER_PROFILE: `profiles/${SLUG}`,
   },
 }

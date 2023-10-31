@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common'
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {ActivatedRoute, Params, Router, RouterLink} from '@angular/router'
 import {Store} from '@ngrx/store'
 import {Observable, combineLatest} from 'rxjs'
@@ -11,7 +11,8 @@ import {FeedService} from './services/feed.service'
 import {feedActions} from './store/actions'
 import {selectError, selectFeedData, selectIsLoading} from './store/reducers'
 import {GetFeedResponseInterface} from './types/get-feed-response.interface'
-import { TagListComponent } from '../tag-list/tag-list.component'
+import {TagListComponent} from '../tag-list/tag-list.component'
+import {AddToFavouritesComponent} from '../add-to-favouties/add-to-favourites.component'
 
 interface FeedData {
   isLoading: boolean
@@ -29,10 +30,11 @@ interface FeedData {
     ErrorMessageComponent,
     LoadingComponent,
     PaginationComponent,
-    TagListComponent
+    TagListComponent,
+    AddToFavouritesComponent,
   ],
 })
-export class FeedComponent implements OnInit {
+export class FeedComponent implements OnInit, OnChanges {
   @Input() public apiUrl!: string
 
   public data$!: Observable<FeedData>
@@ -60,6 +62,15 @@ export class FeedComponent implements OnInit {
       this.currentPage = this.getPageForPagination(params)
       this.fetchFeed()
     })
+  }
+  public ngOnChanges(changes: SimpleChanges): void {
+    const isApiUrlChanged =
+      !changes['apiUrl'].firstChange &&
+      changes['apiUrl'].currentValue !== changes['apiUrl'].previousValue
+
+    if (isApiUrlChanged) {
+      this.fetchFeed()
+    }
   }
 
   private fetchFeed(): void {

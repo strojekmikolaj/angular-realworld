@@ -10,3 +10,14 @@ export const apiFeed = {
 export const apiTags = {
   ..._commonEnvironment.apiTags,
 }
+
+export const apiArticle = {
+  ..._commonEnvironment.apiArticle,
+}
+
+export const apiFavorites = {
+  ..._commonEnvironment.apiFavorites,
+}
+export const apiUserProfile = {
+  ..._commonEnvironment.apiUserProfile,
+}

@@ -9,7 +9,7 @@ import {BackendErrorService} from './services/backend-error-messages.service'
   standalone: true,
   imports: [CommonModule],
 })
-export class BackendErrorMessages implements OnInit {
+export class BackendErrorMessagesComponent implements OnInit {
   @Input() public backendErrors!: BackendErrorInterface
 
   public errorMessages!: string[]

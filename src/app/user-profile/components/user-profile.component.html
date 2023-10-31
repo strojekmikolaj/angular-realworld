@@ -1,0 +1,60 @@
+<ng-container *ngIf="data$ | async as data">
+  <div class="profile-page" *ngIf="data.userProfile">
+    <div class="user-info">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-md-10 offset-md-1">
+            <img [src]="data.userProfile.username" alt="" class="user-img" />
+            <h4>{{ data.userProfile.username }}</h4>
+            <p>{{ data.userProfile.bio }}</p>
+            <div>
+              FOLLOW USER BUTTON
+              <a
+                href=""
+                *ngIf="data.isCurrentUserProfile"
+                class="btn btn-sm btn-outline-secondary action-btn"
+                routerLink="/settings"
+                >Edit Profile Settings</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-10 offset-md-1">
+          <div class="article-toggler">
+            <ul class="nav nav-pills outline-active">
+              <li class="nav-item">
+                <a
+                  href=""
+                  [routerLink]="['/profiles', data.userProfile.username]"
+                  class="nav-link"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{exact: true}"
+                  >My PostS</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  href=""
+                  [routerLink]="[
+                    '/profiles',
+                    data.userProfile.username,
+                    '/favorites'
+                  ]"
+                  class="nav-link"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{exact: true}"
+                  >Favorites PostS</a
+                >
+              </li>
+            </ul>
+          </div>
+          <mc-feed [apiUrl]="getApiUrl()"></mc-feed>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

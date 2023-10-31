@@ -14,7 +14,7 @@ import {authActions} from '../../store/actions'
 import {selectIsSubmitting, selectValidationErrors} from '../../store/reducers'
 import {AuthStateInterface} from '../../types/auth-state.interface'
 import {RegisterRequest} from '../../types/register.request'
-import {BackendErrorMessages} from 'src/app/shared/components/backend-error-messages/backend-error-messages.components'
+import {BackendErrorMessagesComponent} from 'src/app/shared/components/backend-error-messages/backend-error-messages.components'
 
 interface RegisterData {
   isSubmitting: boolean
@@ -29,7 +29,7 @@ interface RegisterData {
     CommonModule,
     ReactiveFormsModule,
     RouterLink,
-    BackendErrorMessages,
+    BackendErrorMessagesComponent,
   ],
 })
 export class RegisterComponent implements OnInit {
