@@ -14,10 +14,7 @@ export class ApiAddToFavoritesService {
 
   public addToFavorites(slug: string): Observable<ArticleInterface> {
     const {API_HOST_URL, FAVORITES} = apiFavorites
-    const url = `${API_HOST_URL}/${FAVORITES}`.replace(
-      ApiParams.SLUG,
-      slug.toString()
-    )
+    const url = `${API_HOST_URL}/${FAVORITES}`.replace(ApiParams.SLUG, slug)
     return this.http
       .post<ArticleResponse>(url, {})
       .pipe(map((response) => response.article))
@@ -25,10 +22,7 @@ export class ApiAddToFavoritesService {
 
   public removeToFavorites(slug: string): Observable<ArticleInterface> {
     const {API_HOST_URL, FAVORITES} = apiFavorites
-    const url = `${API_HOST_URL}/${FAVORITES}`.replace(
-      ApiParams.SLUG,
-      slug.toString()
-    )
+    const url = `${API_HOST_URL}/${FAVORITES}`.replace(ApiParams.SLUG, slug)
     return this.http
       .delete<ArticleResponse>(url)
       .pipe(map((response) => response.article))

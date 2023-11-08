@@ -10,6 +10,7 @@ import * as authEffects from './auth/store/effects'
 import * as feedEffects from './shared/components/feed/store/effect'
 import * as popularTagsEffect from './shared/components/popular-tags/store/effect'
 import * as addToFavorites from './shared/components/add-to-favouties/store/effect'
+import * as followUserEffect from './shared/components/follow-button/store/effect'
 import {provideEffects} from '@ngrx/effects'
 import {provideRouterStore, routerReducer} from '@ngrx/router-store'
 import {authInterceptor} from './shared/services/auth-interceptor'
@@ -40,7 +41,13 @@ export const appConfig: ApplicationConfig = {
     provideState(feedFeatureKey, feedReducer),
     provideState(tagsFeatureKey, tagsReducer),
     provideHttpClient(withInterceptors([authInterceptor])),
-    provideEffects(authEffects, feedEffects, popularTagsEffect, addToFavorites),
+    provideEffects(
+      authEffects,
+      feedEffects,
+      popularTagsEffect,
+      addToFavorites,
+      followUserEffect
+    ),
     provideRouterStore(),
     ApiAddToFavoritesService,
   ],

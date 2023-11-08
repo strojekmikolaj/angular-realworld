@@ -8,7 +8,12 @@
             <h4>{{ data.userProfile.username }}</h4>
             <p>{{ data.userProfile.bio }}</p>
             <div>
-              FOLLOW USER BUTTON
+              <ng-container *ngIf="!data.isCurrentUserProfile"
+                ><mc-follow-button
+                  [isFollowed]="data.userProfile.following"
+                  [username]="data.userProfile.username"
+                ></mc-follow-button
+              ></ng-container>
               <a
                 href=""
                 *ngIf="data.isCurrentUserProfile"
@@ -33,7 +38,7 @@
                   class="nav-link"
                   routerLinkActive="active"
                   [routerLinkActiveOptions]="{exact: true}"
-                  >My PostS</a
+                  >My Posts</a
                 >
               </li>
               <li class="nav-item">
@@ -47,7 +52,7 @@
                   class="nav-link"
                   routerLinkActive="active"
                   [routerLinkActiveOptions]="{exact: true}"
-                  >Favorites PostS</a
+                  >Favorites Posts</a
                 >
               </li>
             </ul>

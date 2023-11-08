@@ -25,11 +25,11 @@ export class AddToFavouritesComponent {
         slug: this.articleSlug,
       })
     )
-    this.setFavoritesCout()
+    this.setFavoritesCount()
     this.toggleIsFavorited()
   }
 
-  private setFavoritesCout(): void {
+  private setFavoritesCount(): void {
     this.isFavorited ? this.favoritesCount-- : this.favoritesCount++
   }
   private toggleIsFavorited(): void {
