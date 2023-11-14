@@ -1,10 +1,15 @@
 import {CommonModule} from '@angular/common'
 import {Component, OnInit} from '@angular/core'
-import {Store} from '@ngrx/store'
-import {articleActions} from '../store/actions'
 import {ActivatedRoute, RouterLink} from '@angular/router'
+import {Store, select} from '@ngrx/store'
+import {Observable, combineLatest, filter, tap} from 'rxjs'
+import {ArticleMetaComponent} from 'src/app/shared/components/article-meta/article-meta.component'
+import {ErrorMessageComponent} from 'src/app/shared/components/error-messages/error-message.component'
+import {LoadingComponent} from 'src/app/shared/components/loading/loading.component'
+import {TagListComponent} from 'src/app/shared/components/tag-list/tag-list.component'
 import {ArticleInterface} from 'src/app/shared/types/article.interface'
-import {Observable, combineLatest, filter, map} from 'rxjs'
+import {ArticleService} from '../services/article.service'
+import {articleActions} from '../store/actions'
 import {
   selectArticleData,
   selectError,
@@ -12,15 +17,16 @@ import {
 } from '../store/reducers'
 import {CurrentUserInterface} from 'src/app/shared/types/current-user.interface'
 import {selectCurrentUser} from 'src/app/auth/store/reducers'
-import {LoadingComponent} from 'src/app/shared/components/loading/loading.component'
-import {ErrorMessageComponent} from 'src/app/shared/components/error-messages/error-message.component'
-import {TagListComponent} from 'src/app/shared/components/tag-list/tag-list.component'
+import {CommentFormComponent} from 'src/app/shared/components/comment-form/components/comment-form.component'
+import {CommentFormVaules} from 'src/app/shared/components/comment-form/types/comment-form-vaules.interface'
+import {CommentsComponent} from 'src/app/shared/components/comments/comments.component'
 
 interface ArticleData {
   isLoading: boolean
   error: string | null
   article: ArticleInterface | null
   isAuthor: boolean
+  currentUser: CurrentUserInterface | null
 }
 
 @Component({
@@ -33,16 +39,20 @@ interface ArticleData {
     LoadingComponent,
     ErrorMessageComponent,
     TagListComponent,
+    ArticleMetaComponent,
+    CommentsComponent,
   ],
 })
 export class ArticleComponent implements OnInit {
   public slug!: string
   public data$!: Observable<ArticleData>
   public isAuthor$!: Observable<boolean>
+  public currentUser$!: Observable<CurrentUserInterface | null>
 
   public constructor(
     private readonly store: Store,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly articleService: ArticleService
   ) {}
 
   public ngOnInit(): void {
@@ -50,30 +60,23 @@ export class ArticleComponent implements OnInit {
 
     this.store.dispatch(articleActions.getArticle({slug: this.slug}))
 
-    this.isAuthor$ = combineLatest({
-      article: this.store.select(selectArticleData),
-      currentUser: this.store
-        .select(selectCurrentUser)
-        .pipe(
-          filter(
-            (currentUser): currentUser is CurrentUserInterface | null =>
-              currentUser !== undefined
-          )
-        ),
-    }).pipe(
-      map(({article, currentUser}) => {
-        if (!article || !currentUser) {
-          return false
-        }
-        return article.author.username === currentUser.username
-      })
-    )
+    this.isAuthor$ = this.articleService.isAuthor()
+
+    this.currentUser$ = this.store
+      .select(selectCurrentUser)
+      .pipe(
+        filter(
+          (currentUser): currentUser is CurrentUserInterface | null =>
+            currentUser !== undefined
+        )
+      )
 
     this.data$ = combineLatest({
       isLoading: this.store.select(selectIsLoading),
       error: this.store.select(selectError),
       article: this.store.select(selectArticleData),
       isAuthor: this.isAuthor$,
+      currentUser: this.currentUser$,
     })
   }
 

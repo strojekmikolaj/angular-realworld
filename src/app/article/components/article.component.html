@@ -4,15 +4,7 @@
       <div class="container" *ngIf="data.article">
         <h1>{{ data.article.title }}</h1>
         <div class="article-meta">
-          <a [routerLink]="['/profiles', data.article.author.username]"
-            ><img [src]="data.article.author.image" alt=""
-          /></a>
-          <div class="info">
-            <a [routerLink]="['/profiles', data.article.author.username]">{{
-              data.article.author.username
-            }}</a>
-            <span class="data">{{ data.article.createdAt }}</span>
-          </div>
+          <mc-article-meta [article]="data.article"></mc-article-meta>
           <span *ngIf="data.isAuthor">
             <a
               href=""
@@ -33,13 +25,33 @@
     <div class="container page">
       <mc-loading *ngIf="data.isLoading"></mc-loading>
       <mc-error-message *ngIf="data.error"></mc-error-message>
-
       <div class="row article-content" *ngIf="data.article">
         <div class="col-xs-12">
           <div>
             <p>{{ data.article.body }}</p>
           </div>
           <mc-tag-list [tags]="data.article.tagList"></mc-tag-list>
+        </div>
+      </div>
+      <hr />
+      <div class="article-actions">
+        <div class="article-meta">
+          <mc-article-meta [article]="data.article"></mc-article-meta>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-8 offset-md-2">
+          <ng-container *ngIf="data.currentUser">
+            <mc-comments
+              [slug]="data.article?.slug"
+            ></mc-comments>
+          </ng-container>
+          <ng-container *ngIf="data.currentUser === null">
+            <a href="" [routerLink]="['/login']">Sign in</a>
+            <span> or </span>
+            <a href="" [routerLink]="['/register']">sign up</a>
+            <span> to add comments on this article. </span>
+          </ng-container>
         </div>
       </div>
     </div>

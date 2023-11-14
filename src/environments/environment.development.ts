@@ -21,3 +21,6 @@ export const apiFavorites = {
 export const apiUserProfile = {
   ..._commonEnvironment.apiUserProfile,
 }
+export const apiComment = {
+  ..._commonEnvironment.apiComment,
+}

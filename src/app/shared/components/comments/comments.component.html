@@ -1,0 +1,7 @@
+<ng-container *ngIf="data$ | async as data">
+  <mc-comment-form
+    [isSubmitting]="data.isSubmitting"
+    [errors]="data.validationErrors"
+    (commentSubmit)="onSubmit($event)"
+  ></mc-comment-form>
+</ng-container>

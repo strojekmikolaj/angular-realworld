@@ -1,0 +1,29 @@
+<mc-backend-error-messages
+  *ngIf="errors"
+  [backendErrors]="errors"
+></mc-backend-error-messages>
+<form class="card comment-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <fieldset>
+    <div class="card-block">
+      <textarea
+        class="form-control ng-untouched ng-pristine ng-valid"
+        placeholder="Write a comment..."
+        rows="3"
+        formControlName="body"
+      ></textarea>
+    </div>
+    <div class="card-footer">
+      <img
+        class="comment-author-img"
+        src="https://api.realworld.io/images/smiley-cyrus.jpeg"
+      />
+      <button
+        class="btn btn-sm btn-primary"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Post Comment
+      </button>
+    </div>
+  </fieldset>
+</form>

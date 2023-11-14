@@ -1,6 +1,6 @@
 import {ApiParams} from './const/api-params.const'
 
-const {SLUG} = ApiParams
+const {SLUG, ID} = ApiParams
 
 export const environment = {
   limit: 20,
@@ -32,5 +32,11 @@ export const _commonEnvironment = {
   apiUserProfile: {
     API_HOST_URL: 'https://api.realworld.io/api',
     USER_PROFILE: `profiles/${SLUG}`,
+  },
+  apiComment: {
+    API_HOST_URL: 'https://api.realworld.io/api',
+    GET_COMMENT: `articles/${SLUG}/comments`,
+    CREATE_COMMENT: `articles/${SLUG}/comments`,
+    DELETE_COMMENT: `articles/${SLUG}/comments/${ID}`,
   },
 }
