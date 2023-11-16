@@ -41,16 +41,17 @@
       </div>
       <div class="row">
         <div class="col-xs-12 col-md-8 offset-md-2">
-          <ng-container *ngIf="data.currentUser">
-            <mc-comments
-              [slug]="data.article?.slug"
-            ></mc-comments>
-          </ng-container>
-          <ng-container *ngIf="data.currentUser === null">
-            <a href="" [routerLink]="['/login']">Sign in</a>
-            <span> or </span>
-            <a href="" [routerLink]="['/register']">sign up</a>
-            <span> to add comments on this article. </span>
+          <ng-container *ngIf="data.article">
+            <ng-container *ngIf="data.currentUser">
+              <mc-comments [slug]="data.article.slug"></mc-comments>
+            </ng-container>
+            <ng-container *ngIf="data.currentUser === null">
+              <a href="" [routerLink]="['/login']">Sign in</a>
+              <span> or </span>
+              <a href="" [routerLink]="['/register']">sign up</a>
+              <span> to add comments on this article. </span>
+            </ng-container>
+            <mc-comments-list [slug]="data.article.slug"></mc-comments-list>
           </ng-container>
         </div>
       </div>

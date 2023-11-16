@@ -1,13 +1,16 @@
 import {CommonModule} from '@angular/common'
 import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute, RouterLink} from '@angular/router'
-import {Store, select} from '@ngrx/store'
-import {Observable, combineLatest, filter, tap} from 'rxjs'
+import {Store} from '@ngrx/store'
+import {Observable, combineLatest, filter} from 'rxjs'
+import {selectCurrentUser} from 'src/app/auth/store/reducers'
 import {ArticleMetaComponent} from 'src/app/shared/components/article-meta/article-meta.component'
+import {CommentsComponent} from 'src/app/shared/components/comments/comments.component'
 import {ErrorMessageComponent} from 'src/app/shared/components/error-messages/error-message.component'
 import {LoadingComponent} from 'src/app/shared/components/loading/loading.component'
 import {TagListComponent} from 'src/app/shared/components/tag-list/tag-list.component'
 import {ArticleInterface} from 'src/app/shared/types/article.interface'
+import {CurrentUserInterface} from 'src/app/shared/types/current-user.interface'
 import {ArticleService} from '../services/article.service'
 import {articleActions} from '../store/actions'
 import {
@@ -15,11 +18,7 @@ import {
   selectError,
   selectIsLoading,
 } from '../store/reducers'
-import {CurrentUserInterface} from 'src/app/shared/types/current-user.interface'
-import {selectCurrentUser} from 'src/app/auth/store/reducers'
-import {CommentFormComponent} from 'src/app/shared/components/comment-form/components/comment-form.component'
-import {CommentFormVaules} from 'src/app/shared/components/comment-form/types/comment-form-vaules.interface'
-import {CommentsComponent} from 'src/app/shared/components/comments/comments.component'
+import {CommentsListComponents} from 'src/app/shared/components/comments-list/comments-list.component'
 
 interface ArticleData {
   isLoading: boolean
@@ -41,6 +40,7 @@ interface ArticleData {
     TagListComponent,
     ArticleMetaComponent,
     CommentsComponent,
+    CommentsListComponents,
   ],
 })
 export class ArticleComponent implements OnInit {

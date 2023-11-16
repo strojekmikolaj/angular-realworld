@@ -1,13 +1,13 @@
 import {CommonModule} from '@angular/common'
-import {Component, Input, OnInit} from '@angular/core'
-import {PopularTagType} from '../../types/popular-tag.type'
-import {Observable, combineLatest} from 'rxjs'
-import {Store} from '@ngrx/store'
-import {selectError, selectIsLoading, selectTagsData} from './store/reducers'
-import {tagsActions} from './store/actions'
-import {LoadingComponent} from '../loading/loading.component'
-import {ErrorMessageComponent} from '../error-messages/error-message.component'
+import {Component} from '@angular/core'
 import {RouterLink} from '@angular/router'
+import {Store} from '@ngrx/store'
+import {Observable, combineLatest} from 'rxjs'
+import {PopularTagType} from '../../types/popular-tag.type'
+import {ErrorMessageComponent} from '../error-messages/error-message.component'
+import {LoadingComponent} from '../loading/loading.component'
+import {tagsActions} from './store/actions'
+import {selectError, selectIsLoading, selectTagsData} from './store/reducers'
 
 interface TagsData {
   isLoading: boolean
@@ -33,10 +33,6 @@ export class PopularTagsComponent {
       tags: this.store.select(selectTagsData),
     })
 
-    this.fetchTags()
-  }
-
-  private fetchTags(): void {
     this.store.dispatch(tagsActions.getTags())
   }
 }

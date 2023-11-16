@@ -1,9 +1,9 @@
 <ng-container *ngIf="article">
-  <a [routerLink]="['/profiles', article.author.username]"
+  <a [routerLink]="['/profile', article.author.username]"
     ><img [src]="article.author.image" alt=""
   /></a>
   <div class="info">
-    <a [routerLink]="['/profiles', article.author.username]" class="author">{{
+    <a [routerLink]="['/profile', article.author.username]" class="author">{{
       article.author.username
     }}</a>
     <span class="date">{{ article.createdAt | date : 'medium' }}</span>

@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core'
 import {CommonModule} from '@angular/common'
+import {Component, OnInit} from '@angular/core'
 import {RouterOutlet} from '@angular/router'
-import {TopbarComponent} from './shared/components/top-bar/top-bar.component'
 import {Store} from '@ngrx/store'
 import {authActions} from './auth/store/actions'
+import {TopbarComponent} from './shared/components/top-bar/top-bar.component'
 
 @Component({
   selector: 'app-root',

@@ -1,0 +1,30 @@
+<ng-container *ngIf="data$ | async as data">
+  <mc-loading *ngIf="data.isLoading"></mc-loading>
+  <mc-error-message
+    *ngIf="data.error"
+    [message]="data.error"
+  ></mc-error-message>
+
+  <ng-container *ngIf="data.comments as comments">
+    <div class="card" *ngFor="let comment of comments">
+      <div class="card-block">
+        <p class="card-text">{{ comment.body }}</p>
+      </div>
+      <div class="card-footer">
+        <a
+          class="comment-author"
+          [routerLink]="['/profile', comment.author.username]"
+          ><img class="comment-author-img" [src]="comment.author.image" />&nbsp;
+        </a>
+        <a
+          class="comment-author"
+          [routerLink]="['/profile', comment.author.username]"
+          >{{ comment.author.username }}</a
+        >
+        <span class="date-posted">{{
+          comment.createdAt | date : 'medium'
+        }}</span>
+      </div>
+    </div>
+  </ng-container></ng-container
+>
